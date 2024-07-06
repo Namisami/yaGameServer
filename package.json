@@ -1,0 +1,19 @@
+{
+  "name": "yagameserver",
+  "version": "1.0.0",
+  "description": "Yet another game server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Namisami/yaGameServer.git"
+  },
+  "author": "Nami",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Namisami/yaGameServer/issues"
+  },
+  "homepage": "https://github.com/Namisami/yaGameServer#readme"
+}
