@@ -2,8 +2,9 @@
   "name": "yagameserver",
   "version": "1.0.0",
   "description": "Yet another game server",
-  "main": "index.js",
+  "main": "src/index.ts",
   "scripts": {
+    "start": "node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,18 @@
   "bugs": {
     "url": "https://github.com/Namisami/yaGameServer/issues"
   },
-  "homepage": "https://github.com/Namisami/yaGameServer#readme"
+  "homepage": "https://github.com/Namisami/yaGameServer#readme",
+  "devDependencies": {
+    "@types/node": "^20.14.10",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "typescript": "^5.5.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ws": "^8.18.0"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8"
+  }
 }
