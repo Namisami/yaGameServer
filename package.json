@@ -1,10 +1,12 @@
 {
-  "name": "yagameserver",
+  "name": "yagameserver1",
   "version": "1.0.0",
   "description": "Yet another game server",
   "main": "src/index.ts",
   "scripts": {
-    "start": "node src/index.ts",
+    "start": "npm run dev",
+    "dev": "nodemon src/index.ts",
+    "build": "gulp build && webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,12 +20,16 @@
   },
   "homepage": "https://github.com/Namisami/yaGameServer#readme",
   "devDependencies": {
-    "@babel/preset-env": "^7.24.7",
     "@types/node": "^20.14.10",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
-    "typescript": "^5.5.3"
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.3",
+    "webpack": "^5.92.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4",
+    "webpack-stream": "^7.0.0"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

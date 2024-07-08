@@ -1,10 +1,16 @@
 import * as dotenv from 'dotenv';
-import { createServer } from 'http';
-
-const app = createServer((req, res) => {
-  res.end('Hello!')
-})
+import * as http from 'http';
 
 dotenv.config();
 
-console.log(process.env.NODE_ENV)
+const PORT = process.env.PORT;
+
+console.log(PORT);
+
+const app = http.createServer((req: http.IncomingMessage, res) => {
+  res.end('Hello!')
+})
+
+app.listen(PORT, () => {
+  console.log(`Server is running on: http://localhost:${PORT}`);
+})
