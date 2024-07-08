@@ -1,7 +1,4 @@
-const { series, src, dest } = require('gulp'); 
-const webpack = require('webpack');
-const webpackStream = require('webpack-stream');
-const webpackConfig = require('../webpack.config.js');
+const { series } = require('gulp'); 
 const { tsTranspile, tsFilesWatch } = require('./tasks/tsTranspile.js');
 require('dotenv').config();
 
