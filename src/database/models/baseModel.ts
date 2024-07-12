@@ -25,11 +25,13 @@ export class DBField {
     this.#type = type;
   }
 
+  // CHECK constraint method
   check(...statements: string[]) {
     logger.info(statements);
     return this;
   }
   
+  // NOT NULL constraint method
   notNull() {
     if (this.#primaryKey) {
       logger.warn(`DB[${this.name}]PRIMARY field is already NOT NULL`);
@@ -39,6 +41,7 @@ export class DBField {
     return this;
   }
   
+  // UNIQUE constraint method
   unique() {
     if (this.#primaryKey) {
       logger.warn(`DB[${this.name}]PRIMARY field is already UNIQUE`);
@@ -47,10 +50,11 @@ export class DBField {
     this.#unique = true;
     return this;
   }
-
+  
+  // PRIMARY KEY constraint method
   primaryKey() {
     this.#primaryKey = true;
-
+    
     if (this.#unique) {
       logger.warn(`DB[${this.name}]PRIMARY field is already UNIQUE`);
       this.#unique = false;
@@ -59,10 +63,11 @@ export class DBField {
       logger.warn(`DB[${this.name}]PRIMARY field is already NOT NULL`);  
       this.#nullable = true;
     }
-
+    
     return this;
   }
-
+  
+  // FOREIGN KEY constraint method
   foreignKey(table: string, field: string) {
     this.#foreignKey = {
       table,
@@ -70,7 +75,8 @@ export class DBField {
     }
     return this;
   }
-
+  
+  // Generate SQL code for constraints
   private get contraintsSQL() {
     const contraints = [
       this.#nullable ? "" : "NOT NULL",
@@ -81,6 +87,7 @@ export class DBField {
     return `${contraints.join(" ")}`
   }
 
+  // Generate SQL code for the field
   get sql() {
     return `\n\t${this.name} ${this.#type} ${this.contraintsSQL},`;
   }
@@ -95,11 +102,13 @@ export class DBTable {
     this.name = name;
   }
 
+  // Add new fields
   field(field: DBField) {
     this.#fields.push(field);
     return this;
   }
 
+  // Generate SQL code for the table
   get sql() {
     let sql = `CREATE TABLE IF NOT EXISTS ${this.name} (`;
     this.#fields.forEach((field) => sql += field.sql);
