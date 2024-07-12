@@ -1,5 +1,7 @@
 import * as http from "http";
 import { Server, Socket } from "socket.io";
+import logger from "./config/logger";
+import { DBTable, DBField } from "./database/models/baseModel";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -9,6 +11,11 @@ const PORT = process.env.PORT;
 
 // Realise http server
 const app = http.createServer((req, res) => {
+  const table = new DBTable('players');
+  table.field(new DBField('id', 'integer').primaryKey())
+        .field(new DBField('hp', 'integer').notNull())
+        .field(new DBField('username', 'char(50)').notNull());
+  logger.info(table.sql);
   switch (req.url) {
     case "/players":
       res.end("Players");

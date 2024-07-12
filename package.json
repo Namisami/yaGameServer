@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "npm run dev",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon src/index.ts | pino-pretty",
     "build": "gulp build && webpack",
     "lint": "eslint src/**/*.{js,ts}",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -28,6 +28,7 @@
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "nodemon": "^3.1.4",
+    "pino-pretty": "^11.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
     "webpack": "^5.92.1",
@@ -36,6 +37,8 @@
   },
   "dependencies": {
     "dotenv": "^16.4.5",
+    "pg": "^8.12.0",
+    "pino": "^9.2.0",
     "socket.io": "^4.7.5",
     "ws": "^8.18.0"
   },
