@@ -1,7 +1,7 @@
 import * as http from "http";
 import { Server, Socket } from "socket.io";
-import logger from "./config/logger";
 import { DBTable, DBField } from "./database/models/baseModel";
+import logger from "./config/logger";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -49,4 +49,34 @@ socketIO.on("connection", (socket: Socket) => {
 
 app.listen(PORT, () => {
   logger.info(`Server is running on: http://localhost:${PORT}`);
+});
+
+
+// Unexpected errors handling and logging
+process.on("uncaughtException", (err) => {
+  logger.fatal(err, "UncaughtException found");
+
+  app.close(() => {
+    process.exit(1);
+  });
+
+  setTimeout(() => {
+    process.abort(); 
+  }, 1000).unref();
+
+  process.exit(1);
+});
+
+process.on("unhandledRejection", (err) => {
+  logger.fatal(err, "UnhandledRejection found");
+
+  app.close(() => {
+    process.exit(1);
+  });
+
+  setTimeout(() => {
+    process.abort(); 
+  }, 1000).unref();
+
+  process.exit(1);
 });
