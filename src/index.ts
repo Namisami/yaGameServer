@@ -1,26 +1,25 @@
-import * as http from "http";
-import { Server, Socket } from "socket.io";
-import { DBTable, DBField } from "./database/models/baseModel";
-import logger from "./config/logger";
+// IT MUST BE ON THE TOP OF THE ENTRY FILE
+import "module-alias/register";
 import * as dotenv from "dotenv";
-
 dotenv.config();
 
+import * as http from "http";
+import { Server, Socket } from "socket.io";
+
+import getPlayers from "@controllers/players/getPlayers";
+import logger from "@config/logger";
+
 // Get .env variables
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 8000;
 
 // Realise http server
-const app = http.createServer((req, res) => {
-  const table = new DBTable("players");
-  table
-    .field(new DBField("id", "integer").primaryKey())
-    .field(new DBField("hp", "integer").notNull())
-    .field(new DBField("username", "char(50)").notNull());
-  logger.info(table.sql);
-
+const app = http.createServer(async (req, res) => {
   switch (req.url) {
     case "/players":
-      res.end("Players");
+      (async function() {
+        const result = await getPlayers();
+        res.end(result);
+      })();
       break;
     default:
       res.end("Hello!");

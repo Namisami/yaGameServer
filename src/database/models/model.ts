@@ -1,4 +1,4 @@
-import logger from "../../config/logger";
+import logger from "@config/logger";
 // !! Make better log for PRIMARY/UNIQUE/NOT NULL
 // !! Add CHECK
 // !! Add DBField type logic
@@ -96,21 +96,22 @@ export class DBTable {
   name;
   #fields: DBField[] = [];
 
-  constructor(name: string) {
+  constructor(name: string, fields: DBField[]) {
     this.name = name;
+    this.#fields = fields;
   }
 
   // Add new fields
-  field(field: DBField) {
-    this.#fields.push(field);
-    return this;
-  }
+  // field(field: DBField) {
+  //   this.#fields.push(field);
+  //   return this;
+  // }
 
   // Generate SQL code for the table
   get sql() {
     let sql = `CREATE TABLE IF NOT EXISTS ${this.name} (`;
     this.#fields.forEach((field) => (sql += field.sql));
     sql = sql.slice(0, sql.length - 1) + "\n);";
-    return "";
+    return sql;
   }
 }
