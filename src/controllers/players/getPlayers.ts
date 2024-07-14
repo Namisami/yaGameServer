@@ -1,12 +1,24 @@
 import logger from "@config/logger";
-import db from "@database/init";
+import db from "@database/connect";
 
+type Player = {
+  id: number,
+  hp: number,
+  username: string,
+  posx: number,
+  posy: number
+};
+
+// interface Data<T> {
+//   data: T[]
+// }
 
 const getPlayers = async () => {
   try {
     const res = await db.execute("SELECT * FROM players");
-    logger.info("Success", res?.rows  );
-    return JSON.stringify(res?.rows);
+    const data: Player[] | undefined = res?.rows; 
+    logger.info("Success", data  );
+    return JSON.stringify(data);
   } catch(err) {
     logger.error(err);
   }

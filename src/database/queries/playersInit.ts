@@ -3,7 +3,7 @@ import db, { InitializerFunction } from "@database/connect";
 import logger from "@config/logger";
 
 
-export const playersInit: InitializerFunction = () => {
+export const playersInit: InitializerFunction = async () => {
   logger.info("Initializing players table");
   const table = new DBTable("players", [
     new DBField("id", "integer").primaryKey(),
@@ -13,5 +13,5 @@ export const playersInit: InitializerFunction = () => {
     new DBField("posy", "integer")
   ]);
 
-  db.execute(table.sql);
+  await db.execute(table.sql);
 };

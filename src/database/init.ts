@@ -1,11 +1,12 @@
 import db from "@database/connect";
 import { playersInit } from "@database/queries/playersInit";
-import logger from "@config/logger";
 
+// Initialize database
+const dbInit = async () => {
+  await db.init([
+    playersInit
+  ]);
+  return db;
+};
 
-logger.info("Running DB initialization");
-db.init([
-  playersInit
-]);
-
-export default db;
+export default dbInit;

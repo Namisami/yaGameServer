@@ -2,9 +2,9 @@ import { Client, ClientConfig } from "pg";
 import dbConfig from "@config/dbConfig";
 import logger from "@config/logger";
 
-export type InitializerFunction = () => void;
+export type InitializerFunction = () => Promise<void>;
 
-class DB {
+export class DB {
   #db;
   constructor(dbConfig: ClientConfig) {
     this.#db = new Client(dbConfig);
@@ -29,8 +29,11 @@ class DB {
   }
 
   async init(initializers: InitializerFunction[]) {
-    await this.connect();
-    initializers.forEach((initializer) => initializer());
+    logger.info("Running DB initialization");
+    await this.connect().then(() => {
+      initializers.forEach(async (initializer) => await initializer());
+    });
+    logger.info("DB initialization completed");
   }
 }
 
