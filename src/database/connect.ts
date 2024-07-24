@@ -2,17 +2,29 @@ import { Client, ClientConfig } from "pg";
 import dbConfig from "@config/dbConfig";
 import logger from "@config/logger";
 
+
 export type InitializerFunction = () => Promise<void>;
 
-export class DB {
-  #db;
+export class Database {
+  static #instance: Database;
+  #client: Client;
+  
   constructor(dbConfig: ClientConfig) {
-    this.#db = new Client(dbConfig);
+    if (Database.#instance) throw new Error("Database instance already exists");
+    this.#client = new Client(dbConfig);
+    Database.#instance = this;
+  }
+
+  static getInstance() {
+    if (!Database.#instance) {
+      Database.#instance = new Database(dbConfig);
+    }
+    return Database.#instance;
   }
 
   private async connect() {
     try {
-      await this.#db.connect();
+      await this.#client.connect();
       logger.info("Connected to PostgreSQL database");
     } catch(err) {
       logger.error(err, "Error connecting to PostgreSQL database");
@@ -21,7 +33,7 @@ export class DB {
 
   async execute(sql: string) {
     try {
-      const result = await this.#db.query(sql);
+      const result = await this.#client.query(sql);
       return result;
     } catch(err) {
       logger.error(err, "Error when executing query");
@@ -37,6 +49,6 @@ export class DB {
   }
 }
 
-const db = new DB(dbConfig);
+const db = new Database(dbConfig);
 
 export default db;

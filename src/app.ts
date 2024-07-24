@@ -2,7 +2,7 @@ import * as http from "http";
 
 import socketInit from "@/socket";
 import logger from "@config/logger";
-import { DB } from "@database/connect";
+import { Database } from "@database/connect";
 import dbInit from "@database/init";
 import Router from "@routers/router";
 
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 8000;
 
 class App {
   #server: http.Server;
-  #db: DB;
+  #db: Database;
   #router: Router | undefined;
 
   // Initialize parts of the app
