@@ -17,8 +17,9 @@ const getPlayers = async () => {
   try {
     const res = await db.execute("SELECT * FROM players");
     const data: Player[] | undefined = res?.rows; 
+    console.log(res?.rows);
     logger.info("Success", data  );
-    return JSON.stringify(data);
+    return JSON.stringify(data, null, 2);
   } catch(err) {
     logger.error(err);
   }
