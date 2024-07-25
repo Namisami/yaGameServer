@@ -1,11 +1,12 @@
-import db from "@database/connect";
-import { playersInit } from "@database/queries/playersInit";
+import db from "@database/database";
+import { playersInit } from "@/models/players";
 
 // Initialize database
 const dbInit = async () => {
-  await db.init([
-    playersInit
-  ]);
+  // await db.init([
+  //   playersInit
+  // ]);
+  await db.initm();
   return db;
 };
 

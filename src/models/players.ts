@@ -1,9 +1,9 @@
-import { DBTable, DBField } from "@database/models/model";
-import db, { InitializerFunction } from "@database/connect";
+import { DBTable, DBField } from "@/database/model";
+import db, { InitializerFunction } from "@database/database";
 import logger from "@config/logger";
 
 
-export const playersInit: InitializerFunction = async () => {
+export async function playersInit() {
   logger.info("Initializing players table");
   const table = new DBTable("players", [
     new DBField("id", "integer").primaryKey(),
@@ -14,4 +14,7 @@ export const playersInit: InitializerFunction = async () => {
   ]);
 
   await db.execute(table.sql);
-};
+}
+(async () => {
+  await playersInit();
+})();

@@ -2,7 +2,7 @@ import * as http from "http";
 
 import socketInit from "@/socket";
 import logger from "@config/logger";
-import { Database } from "@database/connect";
+import { Database } from "@database/database";
 import dbInit from "@database/init";
 import Router from "@routers/router";
 

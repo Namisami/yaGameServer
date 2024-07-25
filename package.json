@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run dev",
     "dev": "nodemon src/index.ts | pino-pretty",
-    "build": "gulp build && webpack",
+    "build": "webpack",
     "lint": "eslint src/**/*.{js,ts}",
     "lint:fix": "eslint src/**/*.{js,ts} --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -29,11 +29,15 @@
   },
   "homepage": "https://github.com/Namisami/yaGameServer#readme",
   "devDependencies": {
+    "@babel/core": "^7.24.9",
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-typescript": "^7.24.7",
     "@tsconfig/node-lts": "^20.1.3",
     "@types/node": "^20.14.10",
     "@types/pg": "^8.11.6",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
+    "babel-loader": "^9.1.3",
     "eslint": "^8.57.0",
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
@@ -43,7 +47,8 @@
     "typescript": "^5.5.3",
     "webpack": "^5.92.1",
     "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.0.4"
+    "webpack-dev-server": "^5.0.4",
+    "webpack-node-externals": "^3.0.0"
   },
   "dependencies": {
     "dotenv": "^16.4.5",

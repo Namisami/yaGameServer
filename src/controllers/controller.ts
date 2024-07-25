@@ -1,5 +1,5 @@
 import logger from "@config/logger";
-import db from "@database/connect";
+import db from "@database/database";
 
 type Player = {
   id: number,

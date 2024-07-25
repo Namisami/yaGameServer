@@ -11,6 +11,9 @@ declare global {
       DB_HOST?: string;
       DB_PORT?: number;
       DB_NAME?: string;
+
+      ROOT_PATH?: string;
+      MODELS_PATH?: string;
     }
   }
 }
