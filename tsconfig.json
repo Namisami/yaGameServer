@@ -3,10 +3,10 @@
   "compilerOptions": {
     "strictPropertyInitialization": false,
     "target": "es6",
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "node16",
+    "moduleResolution": "node16",
     "noImplicitAny": true,
-  //   "esModuleInterop": true,
+    // "esModuleInterop": true,
   //   "forceConsistentCasingInFileNames": true,            
   //   "strict": true,                                      
   //   "skipLibCheck": true,

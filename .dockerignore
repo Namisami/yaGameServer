@@ -1,0 +1,7 @@
+node_modules
+dist
+gulpfile.js
+public
+.eslintrc.json
+.gitignore
+.prettierrc

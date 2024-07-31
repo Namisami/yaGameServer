@@ -13,7 +13,8 @@ declare global {
       DB_NAME?: string;
 
       ROOT_PATH?: string;
-      MODELS_PATH?: string;
+      
+      DATABASE_URL?: string;
     }
   }
 }

@@ -1,0 +1,29 @@
+services:
+  server:
+    build: .
+    container_name: "server"
+    restart: always
+    environment:
+      - "DB_HOST=postgres"
+    ports:
+      - "${PORT}:${PORT}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:14.3
+    container_name: "postgres"
+    restart: always
+    environment:
+      - "PGUSER=${DB_USER}"
+      - "POSTGRES_DB=${DB_NAME}"
+      - "POSTGRES_USER=${DB_USER}"
+      - "POSTGRES_PASSWORD=${DB_PASSWORD}"
+    ports:
+      - "5433:${DB_PORT}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1s
+      timeout: 5s
+      retries: 10

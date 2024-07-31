@@ -7,6 +7,7 @@
     "start": "npm run dev",
     "dev": "nodemon src/index.ts | pino-pretty",
     "build": "webpack",
+    "migrate": "node-pg-migrate",
     "lint": "eslint src/**/*.{js,ts}",
     "lint:fix": "eslint src/**/*.{js,ts} --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -41,6 +42,7 @@
     "eslint": "^8.57.0",
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
+    "node-pg-migrate": "^7.6.0",
     "nodemon": "^3.1.4",
     "pino-pretty": "^11.2.1",
     "ts-node": "^10.9.2",

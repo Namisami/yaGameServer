@@ -3,7 +3,7 @@ import * as http from "http";
 import socketInit from "@/socket";
 import logger from "@config/logger";
 import { Database } from "@database/database";
-import dbInit from "@database/init";
+import db from "@database/database";
 import Router from "@routers/router";
 
 // Get .env variables
@@ -23,7 +23,8 @@ class App {
     socketInit(this.#server);
 
     // Initialize DB
-    this.#db = await dbInit();
+    this.#db = db;
+    await db.connect();
   }
 
   // Initialize http server
