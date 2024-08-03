@@ -6,7 +6,7 @@ import logger from "@config/logger";
 // Singleton class
 export class Database {
   // #instance uses for Singleton implementation
-  static #instance: Database;
+  static #instance: Database | undefined;
   // #client uses for connection to Postgres
   #client: Client;
   

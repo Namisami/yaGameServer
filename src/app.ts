@@ -2,16 +2,17 @@ import * as http from "http";
 
 import socketInit from "@/socket";
 import logger from "@config/logger";
-import { Database } from "@database/database";
+// import { Database } from "@database/database";
 import db from "@database/database";
 import Router from "@routers/router";
+import jsonSerializer from "@serializers/jsonSerializer";
 
 // Get .env variables
 const PORT = process.env.PORT || 8000;
 
 class App {
   #server: http.Server;
-  #db: Database;
+  // #db: Database;
   #router: Router | undefined;
 
   // Initialize parts of the app
@@ -23,7 +24,7 @@ class App {
     socketInit(this.#server);
 
     // Initialize DB
-    this.#db = db;
+    // this.#db = db;
     await db.connect();
   }
 
@@ -35,8 +36,8 @@ class App {
 
       // !!! Make 404 Handling
       if (!route) return res.end("No such route");
-      // const { data } = route.cb();
-      const data = await route.cb();
+
+      const data = jsonSerializer(await route.cb());
       res.setHeader("Content-Type", "application/json");
       res.end(data);
     });

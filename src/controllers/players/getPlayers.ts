@@ -1,28 +1,17 @@
-import logger from "@config/logger";
-import db from "@database/database";
+import query from "@database/query";
 
-type Player = {
-  id: number,
-  hp: number,
-  username: string,
-  posx: number,
+interface Player {
+  id: number
+  hp: number
+  username: string
+  posx: number
   posy: number
-};
+}
 
-// interface Data<T> {
-//   data: T[]
-// }
-
+// Get players function
 const getPlayers = async () => {
-  try {
-    const res = await db.execute("SELECT * FROM players");
-    const data: Player[] | undefined = res?.rows; 
-    console.log(res?.rows);
-    logger.info("Success", data  );
-    return JSON.stringify(data, null, 2);
-  } catch(err) {
-    logger.error(err);
-  }
+  const data = await query.select("*", "players");
+  return data;
 };
 
 export default getPlayers;

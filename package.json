@@ -17,6 +17,8 @@
     "@config": "src/config",
     "@database": "src/database",
     "@routers": "src/routers",
+    "@events": "src/events",
+    "@serializers": "src/serializers",
     "@controllers": "src/controllers"
   },
   "repository": {

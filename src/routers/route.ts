@@ -1,8 +1,8 @@
 export default class Route {
   url = "";
-  cb: () => Promise<string | undefined>;
+  cb: () => Promise<object[] | undefined>;
 
-  constructor(url: string, cb: () => Promise<string | undefined>) {
+  constructor(url: string, cb: () => Promise<object[] | undefined>) {
     this.url = url;
     this.cb = cb;
   }

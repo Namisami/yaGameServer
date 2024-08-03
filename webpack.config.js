@@ -30,6 +30,8 @@ module.exports = {
       "@config": path.resolve(__dirname, "src/config"),
       "@database": path.resolve(__dirname, "src/database"),
       "@routers": path.resolve(__dirname, "src/routers"),
+      "@events": path.resolve(__dirname, "src/events"),
+      "@serializers": path.resolve(__dirname, "src/serializers"),
       "@controllers": path.resolve(__dirname, "src/controllers"),
     },
   },
