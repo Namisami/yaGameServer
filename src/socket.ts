@@ -2,6 +2,7 @@ import { Server, Socket } from "socket.io";
 import { Server as HttpServer } from "http";
 
 import logger from "@config/logger";
+import getNearTilesEvent from "@events/getNearTilesEvent";
 
 
 const socketConnection = (httpServer: HttpServer) => {
@@ -33,10 +34,13 @@ const socketInit = (httpServer: HttpServer) => {
     users.push(user);
     logger.info(`${user} connected`);
     socketIO.emit("connection", { username: user });
+    
+    socket.on("get-near-tiles", () => getNearTilesEvent(socketIO));
+    
     socket.on("disconnect", () => {
       logger.info(`${user} disconnected`);
     });
-  });
+  }); 
 };
 
 export default socketInit;

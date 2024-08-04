@@ -1,12 +1,12 @@
 import query from "@database/query";
 
-interface Player {
-  id: number
-  hp: number
-  username: string
-  posx: number
-  posy: number
-}
+// interface Player {
+//   id: number
+//   hp: number
+//   username: string
+//   posx: number
+//   posy: number
+// }
 
 // Get players function
 const getPlayers = async () => {

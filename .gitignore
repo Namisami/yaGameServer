@@ -4,3 +4,4 @@ dist
 public/assets
 .prettierrc
 migrations
+src/config/mockData.sql
