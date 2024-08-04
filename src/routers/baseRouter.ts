@@ -1,8 +1,10 @@
-import getPlayers from "@/controllers/players/getPlayers";
+import login from "@controllers/auth/login";
+import getPlayers from "@controllers/players/getPlayers";
 import Router from "@routers/router";
 
 const router = new Router();
 router.add("/players", getPlayers);
+router.add("/login", () => login("User"));
 // const router = (url) => {
 //   switch (url) {
 //     case "/players":

@@ -26,19 +26,16 @@ const socketInit = (httpServer: HttpServer) => {
   
   // Abort function if connection error occured
   if (!socketIO) return;
-
-  const users = [];
   
   socketIO.on("connection", (socket: Socket) => {
-    const user = `User ${users.length}`;
-    users.push(user);
-    logger.info(`${user} connected`);
-    socketIO.emit("connection", { username: user });
+
+    // logger.info(`${user} connected`);
+    // socketIO.emit("connection", { username: user });
     
     socket.on("get-near-tiles", () => getNearTilesEvent(socketIO));
     
     socket.on("disconnect", () => {
-      logger.info(`${user} disconnected`);
+      // logger.info(`${user} disconnected`);
     });
   }); 
 };
