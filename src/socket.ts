@@ -1,19 +1,15 @@
-import { Server, Socket } from "socket.io";
+import { Server } from "socket.io";
 import { Server as HttpServer } from "http";
 
+import socketConfig from "@config/socketConfig";
 import logger from "@config/logger";
-import getNearTilesEvent from "@events/getNearTilesEvent";
+import connectionHandler from "@handlers/connectionHandler";
 
 
 const socketConnection = (httpServer: HttpServer) => {
   // Declare WS server
   try {
-    const socketIO = new Server(httpServer, {
-      cors: {
-        // Origin is only for development
-        origin: "http://localhost:5173",
-      },
-    });
+    const socketIO = new Server(httpServer, socketConfig);
     logger.info("SocketIO connected");
     return socketIO;
   } catch(err) {
@@ -27,17 +23,7 @@ const socketInit = (httpServer: HttpServer) => {
   // Abort function if connection error occured
   if (!socketIO) return;
   
-  socketIO.on("connection", (socket: Socket) => {
-
-    // logger.info(`${user} connected`);
-    // socketIO.emit("connection", { username: user });
-    
-    socket.on("get-near-tiles", () => getNearTilesEvent(socketIO));
-    
-    socket.on("disconnect", () => {
-      // logger.info(`${user} disconnected`);
-    });
-  }); 
+  socketIO.on("connection", connectionHandler); 
 };
 
 export default socketInit;

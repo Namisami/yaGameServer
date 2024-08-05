@@ -19,6 +19,7 @@
       "@config/*": ["./config/*"],
       "@database/*": ["./database/*"],
       "@routers/*": ["./routers/*"],
+      "@handlers/*": ["./handlers/*"],
       "@events/*": ["./events/*"],
       "@serializers/*": ["./serializers/*"],
       "@controllers/*": ["./controllers/*"]

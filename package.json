@@ -17,6 +17,7 @@
     "@config": "src/config",
     "@database": "src/database",
     "@routers": "src/routers",
+    "@handlers": "src/handlers",
     "@events": "src/events",
     "@serializers": "src/serializers",
     "@controllers": "src/controllers"
