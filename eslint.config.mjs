@@ -37,20 +37,18 @@ export default [
         },
 
         rules: {
-            indent: ["error", 2, {
-                SwitchCase: 1,
+            "indent": ["error", 2, {
+                "SwitchCase": 1,
             }],
 
             "linebreak-style": ["error", "windows"],
-            quotes: ["warn", "double"],
-            semi: ["error", "always"],
+            "quotes": ["warn", "double"],
+            "semi": ["error", "always"],
             "no-console": "warn",
-
-            "no-unused-vars": ["error", {
-                argsIgnorePattern: "^_",
-            }],
+            "no-unused-vars": "off",
 
             "@typescript-eslint/no-var-requires": 0,
+            "@typescript-eslint/no-unused-vars": "error"
         },
     },
 ];

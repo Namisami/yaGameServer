@@ -1,15 +1,16 @@
 import { Socket } from "socket.io";
 import { tilesHandler as regTilesHandler } from "@handlers/tilesHandler";
+import logger from "@/config/logger";
 
 
 const connectionHandler = (socket: Socket) => {
-  // logger.info(`${user} connected`);
-  // socketIO.emit("connection", { username: user });
+  logger.info("USER connected");
+
   const tilesHandler = regTilesHandler(socket);
   
   socket.on("disconnect", () => {
     tilesHandler.off();
-    // logger.info(`${user} disconnected`);
+    logger.info("USER disconnected");
   });
 };
 
