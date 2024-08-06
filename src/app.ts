@@ -5,7 +5,7 @@ import logger from "@config/logger";
 // import { Database } from "@database/database";
 import db from "@database/database";
 import Router from "@routers/router";
-import jsonSerializer from "@serializers/jsonSerializer";
+import jsonParser from "./parsers/jsonParser";
 
 // Get .env variables
 const PORT = process.env.PORT || 8000;
@@ -36,10 +36,13 @@ class App {
 
       // !!! Make 404 Handling
       if (!route) return res.end("No such route");
-
-      const data = jsonSerializer(await route.cb());
-      res.setHeader("Content-Type", "application/json");
-      res.end(data);
+      
+      const parsedReq = jsonParser(req);
+      await route.cb(parsedReq, res);
+      // const data = jsonSerializer(await route.cb());
+      // const data = await route.cb(req, res);
+      // res.setHeader("Content-Type", "application/json");
+      // res.end(data);
     });
     this.#server = server;
     logger.info("Server created");
