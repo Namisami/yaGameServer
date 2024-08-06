@@ -5,7 +5,6 @@ import logger from "@config/logger";
 // import { Database } from "@database/database";
 import db from "@database/database";
 import Router from "@routers/router";
-import jsonParser from "./parsers/jsonParser";
 
 // Get .env variables
 const PORT = process.env.PORT || 8000;
