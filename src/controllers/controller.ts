@@ -1,12 +1,11 @@
 import { ServerResponse } from "http";
 // import logger from "@/config/logger";
-// import jsonParser from "@/parsers/jsonParser";
 import { IncomingMessageWithBody } from "@/types/IncomingMessageWithBody";
 
 class controller {
   static async login(req: IncomingMessageWithBody, res: ServerResponse): Promise<void> {
-    const { test } = req.body;
-    console.log(test);
+    // const { test } = req.body;
+    // console.log(test);
     // req.on('data', (chunk) => {
     //   logger.info(chunk);
     // });

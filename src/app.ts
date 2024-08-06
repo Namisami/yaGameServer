@@ -37,9 +37,7 @@ class App {
       // !!! Make 404 Handling
       if (!route) return res.end("No such route");
       
-      jsonParser(req, res)
-        .then(async (parsedReq) => await route.cb(parsedReq, res))
-        .catch((err) => logger.error(err, "Error when parsing incoming message"));
+      await route.execute(req, res);
     });
     this.#server = server;
     logger.info("Server created");
