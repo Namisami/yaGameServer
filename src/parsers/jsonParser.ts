@@ -1,5 +1,6 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { IncomingMessageWithBody } from "@/types/IncomingMessageWithBody";
+import { IncomingMessageBody } from "@/types/IncomingMessageBody";
 
 const jsonParser = (req: IncomingMessage, res: ServerResponse): Promise<IncomingMessageWithBody> => {
   return new Promise((resolve, reject) => {
@@ -11,7 +12,7 @@ const jsonParser = (req: IncomingMessage, res: ServerResponse): Promise<Incoming
     });
 
     req.on("end", () => {
-      let parsedBody: object;
+      let parsedBody: IncomingMessageBody;
       try {
         parsedBody = JSON.parse(body);
         parsedReq.body = parsedBody;

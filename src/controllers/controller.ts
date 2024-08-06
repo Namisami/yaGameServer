@@ -5,7 +5,8 @@ import { IncomingMessageWithBody } from "@/types/IncomingMessageWithBody";
 
 class controller {
   static async login(req: IncomingMessageWithBody, res: ServerResponse): Promise<void> {
-    // const { username } = req.body;
+    const { test } = req.body;
+    console.log(test);
     // req.on('data', (chunk) => {
     //   logger.info(chunk);
     // });
