@@ -31,7 +31,7 @@ class App {
   private serverInit() {
     const server = http.createServer(async (req, res) => {
       if (!this.#router) return res.end("No routes");
-      const route = this.#router.findRoute(req.url);
+      const route = this.#router.findRoute(req.url, req.method);
 
       // !!! Make 404 Handling
       if (!route) return res.end("No such route");

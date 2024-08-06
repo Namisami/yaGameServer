@@ -33,8 +33,10 @@ class Query {
       const cols_template = `(${cols.join(", ")})`;
       sql = `INSERT INTO ${table} ${cols_template} VALUES ${values_template}`;
     }
+    sql += " RETURNING *";
+    logger.info(sql);
     const res = await db.execute(sql);
-    return res?.rows;
+    return res?.rows.at(0);
   }
 }
 

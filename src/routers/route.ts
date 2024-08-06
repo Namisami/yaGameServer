@@ -1,31 +1,38 @@
 import { ServerResponse } from "http";
 import jsonParser from "@/parsers/jsonParser";
 import { IncomingMessageWithBody } from "@/types/IncomingMessageWithBody";
-import { Route as IRoute } from "@/types/Route";
+// import { Route as IRoute } from "@/types/Route";
 import logger from "@/config/logger";
 
+export interface IRoute {
+  url: string;
+  method: string;
+  cb: (req: IncomingMessageWithBody, res: ServerResponse) => Promise<void>;
+}
 
-export default class Route implements IRoute {
+export default class Route {
   url;
-  cb;
+  method;
+  #cb;
 
-  constructor(url: IRoute["url"], cb: IRoute["cb"]) {
+  constructor(url: IRoute["url"], method: IRoute["method"],  cb: IRoute["cb"]) {
     this.url = url;
-    this.cb = cb;
+    this.method = method;
+    this.#cb = cb;
   }
 
   async execute(req: IncomingMessageWithBody, res: ServerResponse) {
-    switch (req.method) {
+    switch (this.method) {
       case "GET":
-        await this.cb(req, res);
+        await this.#cb(req, res);
         break;
       case "POST":
         jsonParser(req, res)
-          .then(async (parsedReq) => await this.cb(parsedReq, res))
+          .then(async (parsedReq) => await this.#cb(parsedReq, res))
           .catch((err) => logger.error(err, "Error when parsing incoming message"));
         break;
       default:
-        await this.cb(req, res);
+        await this.#cb(req, res);
     }
   }
 }

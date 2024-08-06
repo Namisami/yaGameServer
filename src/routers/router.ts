@@ -1,13 +1,17 @@
-import Route from "@routers/route";
+import Route, { IRoute } from "@routers/route";
 
 export default class Router {
   #routes: Route[] = [];
 
-  add(...route: ConstructorParameters<typeof Route>) {
-    this.#routes.push(new Route(route[0], route[1]));
+  get(url: IRoute["url"], cb: IRoute["cb"]) {
+    this.#routes.push(new Route(url, "GET", cb));
   }
 
-  findRoute(url: string | undefined) {
-    return this.#routes.find((route) => route.url === url);
+  post(url: IRoute["url"], cb: IRoute["cb"]) {
+    this.#routes.push(new Route(url, "POST", cb));
+  }
+
+  findRoute(url?: string, method?: string) {
+    return this.#routes.find((route) => route.url === url && route.method === method);
   }
 }
