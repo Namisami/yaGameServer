@@ -1,5 +1,6 @@
 import { Socket } from "socket.io";
-import { tilesHandler as regTilesHandler } from "@handlers/tilesHandler";
+
+import tilesController from "@/controllers/tilesController";
 import logger from "@config/logger";
 
 
@@ -7,12 +8,12 @@ import logger from "@config/logger";
 const connectionHandler = (socket: Socket) => {
   logger.info("USER connected");
 
-  // Register all used handlers
-  const tilesHandler = regTilesHandler(socket);
+  // Subscribe all used socket controllers
+  tilesController.subscribe(socket);
   
   socket.on("disconnect", () => {
-    // Unsibscribe all registered handlers
-    tilesHandler.off();
+    // Unsibscribe all registered socket controllers
+    tilesController.unsubscribe(socket);
     logger.info("USER disconnected");
   });
 };

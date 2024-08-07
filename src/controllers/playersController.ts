@@ -1,12 +1,10 @@
-import logger from "@/config/logger";
 import User from "@/models/user";
 import { ControllerMethod } from "@/types/ControllerMethod";
-// import logger from "@/config/logger";
 
 class PlayersController {
   async getPlayers(req: ControllerMethod["req"], res: ControllerMethod["res"]) {
     const players = await User.getAll();
-    res.end(players);
+    res.end(players.json());
   }
 
   async postPlayer(req: ControllerMethod["req"], res: ControllerMethod["res"]) {
@@ -14,7 +12,7 @@ class PlayersController {
       const { username } = req.body;
       if (typeof username === "string") {
         const user = await User.create(username);
-        res.end(user);
+        res.end(user.json());
       } else {
         res.end("Username must be string");
       }

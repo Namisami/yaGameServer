@@ -1,8 +1,7 @@
 import query from "@/database/query";
-import jsonSerializer from "@/serializers/jsonSerializer";
-import logger from "@/config/logger";
+import Controller from "@/controllers/controller";
 
-interface IUser {
+export interface IUser {
   id: number
   hp: number
   username: string
@@ -33,8 +32,20 @@ class User {
   }
 
   static async getAll() {
-    const data = await query.select("*", "players");
-    return jsonSerializer(data);
+    const data = await query.select("*", "players") as IUser[] | undefined;
+    const users = data?.map((result) => new User(result.id, result.hp, result.username, result.posx, result.posy));
+    return Controller.makeDataResult(users);
+  }
+
+  static async getByUsername(username: IUser["username"]) {
+    const result = await query.select_one("*", "players", [
+      `username=${username}`
+    ]) as IUser | undefined;
+    if (result) {
+      const user = new User(result.id, result.hp, result.username, result.posx, result.posy);
+      return Controller.makeDataResult(user);
+    }
+    return {};
   }
 
   static async create(username: IUser["username"]) {
@@ -42,8 +53,9 @@ class User {
       ["hp", "username", "posx", "posy"], 
       "players", 
       [100, `'${username}'`, 0, 0]
-    );
-    return jsonSerializer(new User(result.id, result.hp, result.username, result.posx, result.posy) as object);
+    ) as IUser;
+    const user = new User(result.id, result.hp, result.username, result.posx, result.posy);
+    return Controller.makeDataResult(user);
   }
 }
 

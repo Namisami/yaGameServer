@@ -5,7 +5,7 @@ import db from "@database/database";
 type CreateValues = (string | number)[]
 
 class Query {
-  async select(cols: "*" | string[], table: string, conditions?: string[]) {
+  async select(cols: "*" | string[], table: string, conditions?: string[]): Promise<object[] | undefined> {
     let sql = "";
     
     let conditions_template = "";
@@ -18,7 +18,7 @@ class Query {
     }
     logger.info(sql);
     const res = await db.execute(sql);
-    return res?.rows;
+    return res?.rows as object[] | undefined;
   }
   async select_one(cols: "*" | string[], table: string, conditions?: string[]) {
     const data = await this.select(cols, table, conditions);

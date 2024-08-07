@@ -3,11 +3,17 @@ import jsonParser from "@/parsers/jsonParser";
 import { IncomingMessageWithBody } from "@/types/IncomingMessageWithBody";
 // import { Route as IRoute } from "@/types/Route";
 import logger from "@/config/logger";
+import { Socket } from "socket.io";
 
 export interface IRoute {
   url: string;
   method: string;
   cb: (req: IncomingMessageWithBody, res: ServerResponse) => Promise<void>;
+}
+
+export interface IRouteSocket {
+  event: string
+  cb: (socket: Socket) => Promise<void>
 }
 
 export default class Route {
