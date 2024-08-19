@@ -1,6 +1,5 @@
 import Tile from "@/models/tile";
 import { SocketControllerMethod } from "@/types/SocketControllerMethod";
-// import logger from "@/config/logger";
 
 // Enum which declare all handler events names
 enum TILES {
@@ -10,17 +9,17 @@ enum TILES {
 // Tiles controller
 class TilesController {
   // Return tiles near to user
-  async getNearTiles(socket: SocketControllerMethod["socket"]) {
-    const data = await Tile.getNear(0, 0);
+  async getNearTiles(socket: SocketControllerMethod["socket"], posx: number, posy: number) {
+    const data = await Tile.getNear(posx, posy);
     socket.emit(TILES.GET_NEAR, data);
   }
 
   // Subscribe all controller events
   subscribe(socket: SocketControllerMethod["socket"]) {
-    socket.on(TILES.GET_NEAR, () => this.getNearTiles(socket));
+    socket.on(TILES.GET_NEAR, ({posx, posy}) => this.getNearTiles(socket, posx, posy));
   }
   
-  // Unsubscribe all controller events
+  // Unsubscribe all ontroller events
   unsubscribe(socket: SocketControllerMethod["socket"]) {
     socket.off(TILES.GET_NEAR, this.getNearTiles);
   }

@@ -1,7 +1,6 @@
+import { IUser } from "@/models/user";
+import Model from "@/models/model";
 import query from "@/database/query";
-import jsonSerializer from "@/serializers/jsonSerializer";
-import { IUser } from "./user";
-// import logger from "@/config/logger";
 
 export interface ITile {
   id: number
@@ -33,14 +32,16 @@ class Tile {
     this.location = location;
   }
 
+  // Return tiles near user
   static async getNear(posx: IUser["posx"], posy: IUser["posy"]) {
     const data = await query.select("*", "tiles", [
       `x < ${posx + 50}`,
       `x > ${posx - 50}`,
-      `y < ${posy + 50}`,
-      `y > ${posy - 50}`,
-    ]);
-    return jsonSerializer(data);
+      `y < ${posy + 25}`,
+      `y > ${posy - 25}`,
+    ]) as ITile[];
+    const tiles = data?.map((result) => new Tile(result.id, result.x, result.y, result.type, result.location));
+    return Model.makeDataResult(tiles);
   }
 }
 

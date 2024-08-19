@@ -1,5 +1,6 @@
 import query from "@/database/query";
-import Controller from "@/controllers/controller";
+import Model from "@/models/model";
+
 
 export interface IUser {
   id: number
@@ -34,7 +35,7 @@ class User {
   static async getAll() {
     const data = await query.select("*", "players") as IUser[] | undefined;
     const users = data?.map((result) => new User(result.id, result.hp, result.username, result.posx, result.posy));
-    return Controller.makeDataResult(users);
+    return Model.makeDataResult(users);
   }
 
   static async getByUsername(username: IUser["username"]) {
@@ -43,7 +44,7 @@ class User {
     ]) as IUser | undefined;
     if (result) {
       const user = new User(result.id, result.hp, result.username, result.posx, result.posy);
-      return Controller.makeDataResult(user);
+      return Model.makeDataResult(user);
     }
     return {};
   }
@@ -55,7 +56,7 @@ class User {
       [100, `'${username}'`, 0, 0]
     ) as IUser;
     const user = new User(result.id, result.hp, result.username, result.posx, result.posy);
-    return Controller.makeDataResult(user);
+    return Model.makeDataResult(user);
   }
 }
 
